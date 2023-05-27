@@ -2,13 +2,12 @@ package com.mikhailovskii.domain.usecase.registration
 
 import com.mikhailovskii.domain.base.UseCase
 import com.mikhailovskii.domain.model.authorization.RegistrationFields
+import com.mikhailovskii.domain.repository.NetworkRepository
 
-class ValidateAndRegisterUseCase(
-    private val validationUseCase: UseCase<Unit, RegistrationFields>,
-    private val registerUseCase: UseCase<Unit, RegistrationFields>
+class RegisterUseCase(
+    private val repository: NetworkRepository
 ) : UseCase<Unit, RegistrationFields> {
     override suspend fun invoke(params: RegistrationFields) {
-        validationUseCase(params)
-        registerUseCase(params)
+        repository.register(params)
     }
 }

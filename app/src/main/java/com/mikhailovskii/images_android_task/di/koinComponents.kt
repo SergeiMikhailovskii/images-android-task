@@ -1,11 +1,14 @@
 package com.mikhailovskii.images_android_task.di
 
+import com.mikhailovskii.data.repository.NetworkRepository
 import com.mikhailovskii.domain.base.UseCase
 import com.mikhailovskii.domain.failure.ValidationError
 import com.mikhailovskii.domain.model.authorization.LoginFields
 import com.mikhailovskii.domain.model.authorization.RegistrationFields
+import com.mikhailovskii.domain.usecase.login.LoginUseCase
 import com.mikhailovskii.domain.usecase.login.LoginValidationUseCase
 import com.mikhailovskii.domain.usecase.login.ValidateAndLoginUseCase
+import com.mikhailovskii.domain.usecase.registration.RegisterUseCase
 import com.mikhailovskii.domain.usecase.registration.RegistrationValidationUseCase
 import com.mikhailovskii.domain.usecase.registration.ValidateAndRegisterUseCase
 import com.mikhailovskii.domain.usecase.validators.AgeValidationUseCase
@@ -25,12 +28,21 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 internal fun initKoin() = startKoin {
-    modules(androidKoinModule)
+    modules(
+        androidKoinModule,
+        dataKoinModule
+    )
 }
 
 private val androidKoinModule by lazy {
     module {
         includes(authorizationModule)
+    }
+}
+
+private val dataKoinModule by lazy {
+    module {
+        includes(repositoryModule)
     }
 }
 
@@ -52,8 +64,12 @@ private val loginModule by lazy {
                 )
             }
             scoped<UseCase<Unit, LoginFields>>(named<ValidateAndLoginUseCase>()) {
-                ValidateAndLoginUseCase(get(named<LoginValidationUseCase>()))
+                ValidateAndLoginUseCase(
+                    get(named<LoginValidationUseCase>()),
+                    get(named<LoginUseCase>())
+                )
             }
+            scoped<UseCase<Unit, LoginFields>>(named<LoginUseCase>()) { LoginUseCase(get()) }
             scoped<UseCase<ValidationError?, String>>(named<EmailValidationUseCase>()) {
                 EmailValidationUseCase()
             }
@@ -82,8 +98,12 @@ private val registrationModule by lazy {
                 )
             }
             scoped<UseCase<Unit, RegistrationFields>>(named<ValidateAndRegisterUseCase>()) {
-                ValidateAndRegisterUseCase(get(named<RegistrationValidationUseCase>()))
+                ValidateAndRegisterUseCase(
+                    get(named<RegistrationValidationUseCase>()),
+                    get(named<RegisterUseCase>())
+                )
             }
+            scoped<UseCase<Unit, RegistrationFields>>(named<RegisterUseCase>()) { RegisterUseCase(get()) }
             scoped<UseCase<ValidationError?, String>>(named<EmailValidationUseCase>()) {
                 EmailValidationUseCase()
             }
@@ -95,5 +115,11 @@ private val registrationModule by lazy {
             }
             scoped<RegistrationPresentationMapper> { RegistrationPresentationMapperImpl() }
         }
+    }
+}
+
+private val repositoryModule by lazy {
+    module {
+        single<com.mikhailovskii.domain.repository.NetworkRepository> { NetworkRepository() }
     }
 }
