@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mikhailovskii.domain.base.UseCase
+import com.mikhailovskii.domain.failure.Failure
 import com.mikhailovskii.domain.model.authorization.LoginFields
 import com.mikhailovskii.images_android_task.base.BaseViewModel
 import com.mikhailovskii.images_android_task.route.Route
@@ -21,7 +22,7 @@ internal class LoginViewModel(
     internal val screenDataLiveData: LiveData<LoginScreenData> = _screenDataLiveData
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        throwable.printStackTrace()
+        if (throwable is Failure) handleFailure(throwable)
     }
 
     fun setEmail(email: String) {

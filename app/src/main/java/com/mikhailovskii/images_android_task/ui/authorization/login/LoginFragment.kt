@@ -2,11 +2,13 @@ package com.mikhailovskii.images_android_task.ui.authorization.login
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.mikhailovskii.domain.failure.Failure
 import com.mikhailovskii.images_android_task.base.BaseFragment
 import com.mikhailovskii.images_android_task.base.ViewBindingStrategy
 import com.mikhailovskii.images_android_task.databinding.FragmentLoginBinding
@@ -28,6 +30,7 @@ class LoginFragment : BaseFragment(), ViewBindingStrategy<FragmentLoginBinding>,
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 with(viewModel) {
                     observe(routeLiveData, ::handleRoute)
+                    observe(failureLiveData, ::handleFailure)
                 }
             }
         }
@@ -40,6 +43,7 @@ class LoginFragment : BaseFragment(), ViewBindingStrategy<FragmentLoginBinding>,
         }
         binding.etPassword.doAfterTextChanged {
             viewModel.setPassword(it.toString())
+            binding.tvPasswordError.isVisible = false
         }
         binding.btnLogin.setOnClickListener {
             viewModel.login()
@@ -52,6 +56,16 @@ class LoginFragment : BaseFragment(), ViewBindingStrategy<FragmentLoginBinding>,
     private fun handleRoute(route: Route?) {
         if (route == Route.Authorization.Registration) {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegistrationFragment())
+        }
+    }
+
+    private fun handleFailure(failure: Failure?) {
+        if (failure is Failure.FieldsFailure) {
+            val passwordMessage = failure.validationErrors.firstOrNull { it.subject == "password" }?.errorMessage
+            if (passwordMessage != null) {
+                binding.tvPasswordError.isVisible = true
+                binding.tvPasswordError.text = passwordMessage
+            }
         }
     }
 }

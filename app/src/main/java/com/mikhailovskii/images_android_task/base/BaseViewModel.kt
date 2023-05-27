@@ -3,7 +3,7 @@ package com.mikhailovskii.images_android_task.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mikhailovskii.images_android_task.failure.Failure
+import com.mikhailovskii.domain.failure.Failure
 import com.mikhailovskii.images_android_task.route.Route
 
 internal abstract class BaseViewModel : ViewModel() {
@@ -16,5 +16,9 @@ internal abstract class BaseViewModel : ViewModel() {
 
     protected fun handleRoute(route: Route) {
         _routeLiveData.value = route
+    }
+
+    protected fun handleFailure(failure: Failure) {
+        _failureLiveData.value = failure
     }
 }
