@@ -1,5 +1,6 @@
 package com.mikhailovskii.images_android_task.ui.authorization.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.mikhailovskii.domain.failure.Failure
 import com.mikhailovskii.images_android_task.base.BaseFragment
 import com.mikhailovskii.images_android_task.base.ViewBindingStrategy
+import com.mikhailovskii.images_android_task.component.PrivateAreaActivity
 import com.mikhailovskii.images_android_task.databinding.FragmentLoginBinding
 import com.mikhailovskii.images_android_task.extension.getString
 import com.mikhailovskii.images_android_task.extension.observe
@@ -59,7 +61,8 @@ class LoginFragment : BaseFragment(), ViewBindingStrategy<FragmentLoginBinding>,
         if (route == Route.Authorization.Registration) {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegistrationFragment())
         } else if (route == Route.PrivateArea.Home) {
-            println("* open home")
+            startActivity(Intent(requireContext(), PrivateAreaActivity::class.java))
+            requireActivity().finish()
         }
     }
 
