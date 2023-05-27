@@ -65,15 +65,13 @@ class LoginFragment : BaseFragment(), ViewBindingStrategy<FragmentLoginBinding>,
 
     private fun handleFailure(failure: Failure?) {
         if (failure is Failure.FieldsFailure) {
-            val passwordMessage = failure.validationErrors.firstOrNull { it.subject == "password" }?.errorMessage
-            if (passwordMessage != null) {
+            failure.validationErrors.firstOrNull { it.subject == "password" }?.errorMessage?.let {
                 binding.tvPasswordError.isVisible = true
-                binding.tvPasswordError.text = requireContext().getString(passwordMessage)
+                binding.tvPasswordError.text = requireContext().getString(it)
             }
-            val emailMessage = failure.validationErrors.firstOrNull { it.subject == "email" }?.errorMessage
-            if (emailMessage != null) {
+            failure.validationErrors.firstOrNull { it.subject == "email" }?.errorMessage?.let {
                 binding.tvEmailError.isVisible = true
-                binding.tvEmailError.text = requireContext().getString(emailMessage)
+                binding.tvEmailError.text = requireContext().getString(it)
             }
         }
     }

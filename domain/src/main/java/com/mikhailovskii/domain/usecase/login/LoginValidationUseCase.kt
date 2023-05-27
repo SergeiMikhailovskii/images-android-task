@@ -1,4 +1,4 @@
-package com.mikhailovskii.domain.usecase
+package com.mikhailovskii.domain.usecase.login
 
 import com.mikhailovskii.domain.base.UseCase
 import com.mikhailovskii.domain.failure.Failure
