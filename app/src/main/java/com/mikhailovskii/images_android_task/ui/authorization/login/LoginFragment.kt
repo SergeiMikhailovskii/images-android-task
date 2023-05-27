@@ -58,6 +58,8 @@ class LoginFragment : BaseFragment(), ViewBindingStrategy<FragmentLoginBinding>,
     private fun handleRoute(route: Route?) {
         if (route == Route.Authorization.Registration) {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegistrationFragment())
+        } else if (route == Route.PrivateArea.Home) {
+            println("* open home")
         }
     }
 
