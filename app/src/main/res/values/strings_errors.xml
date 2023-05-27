@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_password_length">Password should contain from 6 to 12 symbols</string>
+    <string name="error_email_invalid">Invalid email</string>
 </resources>

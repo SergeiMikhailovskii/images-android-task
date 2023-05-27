@@ -41,6 +41,7 @@ class LoginFragment : BaseFragment(), ViewBindingStrategy<FragmentLoginBinding>,
         super.onViewCreated(view, savedInstanceState)
         binding.etEmail.doAfterTextChanged {
             viewModel.setEmail(it.toString())
+            binding.tvEmailError.isVisible = false
         }
         binding.etPassword.doAfterTextChanged {
             viewModel.setPassword(it.toString())
@@ -66,6 +67,11 @@ class LoginFragment : BaseFragment(), ViewBindingStrategy<FragmentLoginBinding>,
             if (passwordMessage != null) {
                 binding.tvPasswordError.isVisible = true
                 binding.tvPasswordError.text = requireContext().getString(passwordMessage)
+            }
+            val emailMessage = failure.validationErrors.firstOrNull { it.subject == "email" }?.errorMessage
+            if (emailMessage != null) {
+                binding.tvEmailError.isVisible = true
+                binding.tvEmailError.text = requireContext().getString(emailMessage)
             }
         }
     }
