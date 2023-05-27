@@ -1,5 +1,8 @@
 package com.mikhailovskii.images_android_task.di
 
+import com.mikhailovskii.domain.base.UseCase
+import com.mikhailovskii.domain.model.authorization.LoginFields
+import com.mikhailovskii.domain.usecase.LoginValidationUseCase
 import com.mikhailovskii.images_android_task.ui.authorization.login.LoginFragment
 import com.mikhailovskii.images_android_task.ui.authorization.login.LoginViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -25,9 +28,8 @@ private val authorizationModule by lazy {
 private val loginModule by lazy {
     module {
         scope<LoginFragment> {
-            viewModel {
-                LoginViewModel()
-            }
+            viewModel { LoginViewModel(get()) }
+            scoped<UseCase<Unit, LoginFields>> { LoginValidationUseCase() }
         }
     }
 }
