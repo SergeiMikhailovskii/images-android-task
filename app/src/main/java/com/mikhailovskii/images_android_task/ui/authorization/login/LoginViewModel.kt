@@ -11,7 +11,8 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 internal class LoginViewModel(
-    private val loginValidationUseCase: UseCase<Unit, LoginFields>
+    private val loginValidationUseCase: UseCase<Unit, LoginFields>,
+    private val presentationMapper: LoginPresentationMapper
 ) : BaseViewModel() {
 
     private var screenData = LoginScreenData()
@@ -33,7 +34,8 @@ internal class LoginViewModel(
 
     fun login() {
         viewModelScope.launch(exceptionHandler) {
-            loginValidationUseCase(LoginFields())
+            val fields = presentationMapper.mapScreenDataIntoFields(screenData)
+            loginValidationUseCase(fields)
         }
     }
 
