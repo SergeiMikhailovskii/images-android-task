@@ -7,7 +7,16 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.mikhailovskii.images_android_task.ui.authorization.LoginFragment"
-        tools:layout="@layout/fragment_login" />
+        android:name="com.mikhailovskii.images_android_task.ui.authorization.login.LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.mikhailovskii.images_android_task.ui.authorization.registration.RegistrationFragment"
+        tools:layout="@layout/fragment_registration" />
 
 </navigation>
