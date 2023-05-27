@@ -8,7 +8,7 @@ class PasswordValidationUseCase : UseCase<ValidationError?, String> {
         if (params.length !in PASSWORD_MIN_LENGTH..PASSWORD_MAX_LENGTH) {
             ValidationError(
                 subject = "password",
-                errorMessage = "error_password_length"
+                errorMessage = "error_password_invalid"
             )
         } else null
 

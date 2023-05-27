@@ -5,11 +5,13 @@ import com.mikhailovskii.domain.base.UseCase
 import com.mikhailovskii.domain.failure.Failure
 import com.mikhailovskii.domain.model.authorization.RegistrationFields
 import com.mikhailovskii.images_android_task.base.BaseViewModel
+import com.mikhailovskii.images_android_task.route.Route
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 internal class RegistrationViewModel(
     private val registerUseCase: UseCase<Unit, RegistrationFields>,
+    private val presentationMapper: RegistrationPresentationMapper
 ) : BaseViewModel() {
 
     private var screenData = RegistrationScreenData()
@@ -32,9 +34,9 @@ internal class RegistrationViewModel(
 
     fun register() {
         viewModelScope.launch(exceptionHandler) {
-//            val fields = presentationMapper.mapScreenDataIntoFields(screenData)
-//            loginUseCase(fields)
-//            handleRoute(Route.PrivateArea.Home)
+            val fields = presentationMapper.mapScreenDataIntoFields(screenData)
+            registerUseCase(fields)
+            handleRoute(Route.PrivateArea.Home)
         }
     }
 }

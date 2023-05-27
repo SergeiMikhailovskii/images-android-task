@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_password_length">The password must be between 6 and 12 characters long</string>
+    <string name="error_password_invalid">The password must be between 6 and 12 characters long</string>
     <string name="error_email_invalid">The email must be valid</string>
+    <string name="error_age_invalid">The age must be limited between 18 and 99 years old</string>
 </resources>

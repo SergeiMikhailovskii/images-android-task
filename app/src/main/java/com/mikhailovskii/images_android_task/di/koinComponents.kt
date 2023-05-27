@@ -16,6 +16,8 @@ import com.mikhailovskii.images_android_task.ui.authorization.login.LoginPresent
 import com.mikhailovskii.images_android_task.ui.authorization.login.LoginPresentationMapperImpl
 import com.mikhailovskii.images_android_task.ui.authorization.login.LoginViewModel
 import com.mikhailovskii.images_android_task.ui.authorization.registration.RegistrationFragment
+import com.mikhailovskii.images_android_task.ui.authorization.registration.RegistrationPresentationMapper
+import com.mikhailovskii.images_android_task.ui.authorization.registration.RegistrationPresentationMapperImpl
 import com.mikhailovskii.images_android_task.ui.authorization.registration.RegistrationViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -66,7 +68,12 @@ private val loginModule by lazy {
 private val registrationModule by lazy {
     module {
         scope<RegistrationFragment> {
-            viewModel { RegistrationViewModel(get(named<ValidateAndRegisterUseCase>())) }
+            viewModel {
+                RegistrationViewModel(
+                    get(named<ValidateAndRegisterUseCase>()),
+                    get()
+                )
+            }
             scoped<UseCase<Unit, RegistrationFields>>(named<RegistrationValidationUseCase>()) {
                 RegistrationValidationUseCase(
                     get(named<EmailValidationUseCase>()),
@@ -86,6 +93,7 @@ private val registrationModule by lazy {
             scoped<UseCase<ValidationError?, Int>>(named<AgeValidationUseCase>()) {
                 AgeValidationUseCase()
             }
+            scoped<RegistrationPresentationMapper> { RegistrationPresentationMapperImpl() }
         }
     }
 }
