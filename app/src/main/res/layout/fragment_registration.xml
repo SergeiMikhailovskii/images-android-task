@@ -4,11 +4,80 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_email"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Registration"
+        android:layout_marginHorizontal="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_default"
+        android:hint="@string/email_hint"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_email_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:textColor="@color/colorError"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/et_email"
+        app:layout_constraintTop_toBottomOf="@id/et_email" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_default"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_email_error" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_password_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:textColor="@color/colorError"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/et_password"
+        app:layout_constraintTop_toBottomOf="@id/et_password" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_age"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_default"
+        android:hint="@string/age_hint"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_password_error" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_age_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:textColor="@color/colorError"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/et_age"
+        app:layout_constraintTop_toBottomOf="@id/et_age" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_login"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        android:text="@string/register_account_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

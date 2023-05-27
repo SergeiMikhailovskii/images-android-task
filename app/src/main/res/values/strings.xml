@@ -3,6 +3,7 @@
 
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
+    <string name="age_hint">Age</string>
     <string name="login_btn">Login</string>
     <string name="register_account_btn">Register Account</string>
 </resources>

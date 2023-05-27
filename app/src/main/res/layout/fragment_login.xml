@@ -11,6 +11,7 @@
         android:layout_marginHorizontal="@dimen/margin_default"
         android:layout_marginTop="@dimen/margin_default"
         android:hint="@string/email_hint"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,6 +33,7 @@
         android:layout_marginHorizontal="@dimen/margin_default"
         android:layout_marginTop="@dimen/margin_default"
         android:hint="@string/password_hint"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_email_error" />
