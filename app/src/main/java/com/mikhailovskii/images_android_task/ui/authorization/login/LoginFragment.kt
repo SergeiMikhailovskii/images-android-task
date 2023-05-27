@@ -12,6 +12,7 @@ import com.mikhailovskii.domain.failure.Failure
 import com.mikhailovskii.images_android_task.base.BaseFragment
 import com.mikhailovskii.images_android_task.base.ViewBindingStrategy
 import com.mikhailovskii.images_android_task.databinding.FragmentLoginBinding
+import com.mikhailovskii.images_android_task.extension.getString
 import com.mikhailovskii.images_android_task.extension.observe
 import com.mikhailovskii.images_android_task.route.Route
 import kotlinx.coroutines.launch
@@ -64,7 +65,7 @@ class LoginFragment : BaseFragment(), ViewBindingStrategy<FragmentLoginBinding>,
             val passwordMessage = failure.validationErrors.firstOrNull { it.subject == "password" }?.errorMessage
             if (passwordMessage != null) {
                 binding.tvPasswordError.isVisible = true
-                binding.tvPasswordError.text = passwordMessage
+                binding.tvPasswordError.text = requireContext().getString(passwordMessage)
             }
         }
     }
