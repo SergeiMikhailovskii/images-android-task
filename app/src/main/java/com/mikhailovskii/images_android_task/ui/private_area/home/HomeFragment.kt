@@ -53,7 +53,7 @@ class HomeFragment : BaseFragment(), ViewBindingStrategy<FragmentHomeBinding>, A
 
     private fun handleRoute(route: Route?) {
         if (route is Route.PrivateArea.Details) {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment())
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(route.payload))
         }
     }
 

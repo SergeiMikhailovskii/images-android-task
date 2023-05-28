@@ -1,6 +1,10 @@
-package com.mikhailovskii.domain.model.private_area
+package com.mikhailovskii.images_android_task.ui.private_area.details
 
-class HomeImageInfo(
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+class DetailsPayload(
     val id: Long? = null,
     val url: String? = null,
     val size: UInt? = null,
@@ -12,4 +16,4 @@ class HomeImageInfo(
     val comments: UInt? = null,
     val favorites: UInt? = null,
     val downloads: UInt? = null,
-)
+) : Parcelable

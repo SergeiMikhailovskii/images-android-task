@@ -17,6 +17,12 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.mikhailovskii.images_android_task.ui.private_area.details.DetailsFragment"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="payload"
+            android:defaultValue="@null"
+            app:argType="com.mikhailovskii.images_android_task.ui.private_area.details.DetailsPayload"
+            app:nullable="true" />
+    </fragment>
 
 </navigation>

@@ -7,6 +7,7 @@ import com.mikhailovskii.domain.base.UseCase
 import com.mikhailovskii.domain.model.private_area.HomeImageInfo
 import com.mikhailovskii.images_android_task.base.BaseViewModel
 import com.mikhailovskii.images_android_task.route.Route
+import com.mikhailovskii.images_android_task.ui.private_area.details.DetailsPayload
 import kotlinx.coroutines.launch
 
 internal class HomeViewModel(
@@ -24,6 +25,6 @@ internal class HomeViewModel(
     }
 
     fun openImageDetails(imageInfo: HomeImageInfo) {
-        handleRoute(Route.PrivateArea.Details)
+        handleRoute(Route.PrivateArea.Details(DetailsPayload()))
     }
 }
