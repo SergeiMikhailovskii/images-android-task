@@ -3,6 +3,14 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+def networkProperties = new Properties()
+rootProject.file("network.properties").withInputStream {
+    stream -> networkProperties.load(stream)
+}
+
+def baseURL = networkProperties.getProperty("BASE_URL")
+def apiKey = networkProperties.getProperty("API_KEY")
+
 android {
     namespace 'com.mikhailovskii.data'
     compileSdk 33
@@ -13,6 +21,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        buildConfigField "String", "BASE_URL", '"' + baseURL + '"'
+        buildConfigField "String", "API_KEY", '"' + apiKey + '"'
     }
 
     buildTypes {
