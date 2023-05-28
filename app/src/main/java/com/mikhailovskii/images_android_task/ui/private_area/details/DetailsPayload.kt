@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class DetailsPayload(
-    val id: Long? = null,
+    val id: UInt? = null,
     val url: String? = null,
     val size: Int? = null,
     val type: String? = null,

@@ -20,7 +20,19 @@ class NetworkRepository(
     override fun getImages(): List<HomeImageInfo> {
         val response = networkService.getImages().execute().body()
         return response?.hits?.map {
-            HomeImageInfo(userName = it.userName, url = it.previewUrl)
+            HomeImageInfo(
+                id = it.id?.toUInt(),
+                userName = it.userName,
+                url = it.previewUrl,
+                size = it.size,
+                type = it.type,
+                tags = it.tags,
+                views = it.views,
+                likes = it.likes,
+                comments = it.comments,
+                favorites = it.favorites,
+                downloads = it.downloads
+            )
         } ?: emptyList()
     }
 }
