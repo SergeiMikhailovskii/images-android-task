@@ -6,4 +6,14 @@
     <string name="age_hint">Age</string>
     <string name="login_btn">Login</string>
     <string name="register_account_btn">Register Account</string>
+
+    <string name="image_details_size">Size: %1$d</string>
+    <string name="image_details_type">Type: %1$s</string>
+    <string name="image_details_tags">Tags: %1$s</string>
+    <string name="image_details_user_name">Username: %1$s</string>
+    <string name="image_details_views">Views: %1$d</string>
+    <string name="image_details_likes">Likes: %1$d</string>
+    <string name="image_details_comments">Comments: %1$d</string>
+    <string name="image_details_favorites">Favorites: %1$d</string>
+    <string name="image_details_downloads">Downloads: %1$d</string>
 </resources>

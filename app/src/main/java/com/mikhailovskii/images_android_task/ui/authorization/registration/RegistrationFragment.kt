@@ -1,5 +1,6 @@
 package com.mikhailovskii.images_android_task.ui.authorization.registration
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -10,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.mikhailovskii.domain.failure.Failure
 import com.mikhailovskii.images_android_task.base.BaseFragment
 import com.mikhailovskii.images_android_task.base.ViewBindingStrategy
+import com.mikhailovskii.images_android_task.component.PrivateAreaActivity
 import com.mikhailovskii.images_android_task.databinding.FragmentRegistrationBinding
 import com.mikhailovskii.images_android_task.extension.getString
 import com.mikhailovskii.images_android_task.extension.observe
@@ -57,7 +59,8 @@ class RegistrationFragment : BaseFragment(), ViewBindingStrategy<FragmentRegistr
 
     private fun handleRoute(route: Route?) {
         if (route == Route.PrivateArea.Home) {
-            println("* open home")
+            startActivity(Intent(requireContext(), PrivateAreaActivity::class.java))
+            requireActivity().finish()
         }
     }
 
