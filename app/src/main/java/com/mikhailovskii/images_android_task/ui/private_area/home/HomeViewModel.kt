@@ -8,6 +8,7 @@ import com.mikhailovskii.domain.model.private_area.HomeImageInfo
 import com.mikhailovskii.images_android_task.adapter.ImagesHomeAdapter
 import com.mikhailovskii.images_android_task.base.BaseViewModel
 import com.mikhailovskii.images_android_task.route.Route
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 internal class HomeViewModel(
@@ -20,8 +21,12 @@ internal class HomeViewModel(
     private val _imagesLiveData = MutableLiveData<List<ImagesHomeAdapter.Model>>()
     val imagesLiveData: LiveData<List<ImagesHomeAdapter.Model>> = _imagesLiveData
 
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        throwable.printStackTrace()
+    }
+
     fun loadImages() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             val response = getImageListUseCase(Unit)
             val mappedList = presentationMapper.mapResponseListIntoAdapterList(response)
             imagesResponse = response
