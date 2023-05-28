@@ -6,7 +6,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.mikhailovskii.domain.model.private_area.HomeImageInfo
 import com.mikhailovskii.images_android_task.adapter.ImagesHomeAdapter
 import com.mikhailovskii.images_android_task.base.BaseFragment
 import com.mikhailovskii.images_android_task.base.ViewBindingStrategy
@@ -57,7 +56,7 @@ class HomeFragment : BaseFragment(), ViewBindingStrategy<FragmentHomeBinding>, A
         }
     }
 
-    private fun handleImages(images: List<HomeImageInfo>?) {
+    private fun handleImages(images: List<ImagesHomeAdapter.Model>?) {
         images?.let(adapter::setData)
     }
 }

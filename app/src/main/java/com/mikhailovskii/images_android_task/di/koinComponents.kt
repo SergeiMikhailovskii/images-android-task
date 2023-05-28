@@ -26,6 +26,8 @@ import com.mikhailovskii.images_android_task.ui.authorization.registration.Regis
 import com.mikhailovskii.images_android_task.ui.authorization.registration.RegistrationPresentationMapperImpl
 import com.mikhailovskii.images_android_task.ui.authorization.registration.RegistrationViewModel
 import com.mikhailovskii.images_android_task.ui.private_area.home.HomeFragment
+import com.mikhailovskii.images_android_task.ui.private_area.home.HomePresentationMapper
+import com.mikhailovskii.images_android_task.ui.private_area.home.HomePresentationMapperImpl
 import com.mikhailovskii.images_android_task.ui.private_area.home.HomeViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -140,13 +142,14 @@ private val registrationModule by lazy {
 private val homeModule by lazy {
     module {
         scope<HomeFragment> {
-            viewModel { HomeViewModel(get(named<GetImageListUseCase>())) }
+            viewModel { HomeViewModel(get(named<GetImageListUseCase>()), get()) }
             scoped<UseCase<List<HomeImageInfo>, Unit>>(named<GetImageListUseCase>()) {
                 GetImageListUseCase(
                     get(),
                     get(named("DispatchersIO"))
                 )
             }
+            scoped<HomePresentationMapper> { HomePresentationMapperImpl() }
         }
     }
 }

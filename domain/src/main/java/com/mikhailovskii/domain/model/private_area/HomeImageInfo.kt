@@ -1,7 +1,7 @@
 package com.mikhailovskii.domain.model.private_area
 
 class HomeImageInfo(
-    val id: Long? = null,
+    val id: UInt? = null,
     val url: String? = null,
     val size: Int? = null,
     val type: String? = null,
