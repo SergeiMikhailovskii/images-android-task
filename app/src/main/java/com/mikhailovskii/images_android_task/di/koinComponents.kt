@@ -27,6 +27,7 @@ import com.mikhailovskii.images_android_task.ui.authorization.registration.Regis
 import com.mikhailovskii.images_android_task.ui.authorization.registration.RegistrationViewModel
 import com.mikhailovskii.images_android_task.ui.private_area.home.HomeFragment
 import com.mikhailovskii.images_android_task.ui.private_area.home.HomeViewModel
+import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.core.qualifier.named
@@ -35,7 +36,8 @@ import org.koin.dsl.module
 internal fun initKoin() = startKoin {
     modules(
         androidKoinModule,
-        dataKoinModule
+        dataKoinModule,
+        dispatchersModule
     )
 }
 
@@ -51,6 +53,12 @@ private val dataKoinModule by lazy {
             repositoryModule,
             serviceModule
         )
+    }
+}
+
+private val dispatchersModule by lazy {
+    module {
+        single(named("DispatchersIO")) { Dispatchers.IO }
     }
 }
 
@@ -133,7 +141,12 @@ private val homeModule by lazy {
     module {
         scope<HomeFragment> {
             viewModel { HomeViewModel(get(named<GetImageListUseCase>())) }
-            scoped<UseCase<List<HomeImageInfo>, Unit>>(named<GetImageListUseCase>()) { GetImageListUseCase(get()) }
+            scoped<UseCase<List<HomeImageInfo>, Unit>>(named<GetImageListUseCase>()) {
+                GetImageListUseCase(
+                    get(),
+                    get(named("DispatchersIO"))
+                )
+            }
         }
     }
 }
