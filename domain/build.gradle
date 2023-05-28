@@ -1,3 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm'
 }
+
+dependencies {
+    api 'com.squareup.retrofit2:converter-gson:2.9.0'
+}

@@ -1,13 +1,16 @@
 package com.mikhailovskii.images_android_task.di
 
 import com.mikhailovskii.data.repository.NetworkRepository
+import com.mikhailovskii.data.service.buildService
 import com.mikhailovskii.domain.base.UseCase
 import com.mikhailovskii.domain.failure.ValidationError
 import com.mikhailovskii.domain.model.authorization.LoginFields
 import com.mikhailovskii.domain.model.authorization.RegistrationFields
+import com.mikhailovskii.domain.model.private_area.HomeImageInfo
 import com.mikhailovskii.domain.usecase.login.LoginUseCase
 import com.mikhailovskii.domain.usecase.login.LoginValidationUseCase
 import com.mikhailovskii.domain.usecase.login.ValidateAndLoginUseCase
+import com.mikhailovskii.domain.usecase.private_area.GetImageListUseCase
 import com.mikhailovskii.domain.usecase.registration.RegisterUseCase
 import com.mikhailovskii.domain.usecase.registration.RegistrationValidationUseCase
 import com.mikhailovskii.domain.usecase.registration.ValidateAndRegisterUseCase
@@ -22,6 +25,8 @@ import com.mikhailovskii.images_android_task.ui.authorization.registration.Regis
 import com.mikhailovskii.images_android_task.ui.authorization.registration.RegistrationPresentationMapper
 import com.mikhailovskii.images_android_task.ui.authorization.registration.RegistrationPresentationMapperImpl
 import com.mikhailovskii.images_android_task.ui.authorization.registration.RegistrationViewModel
+import com.mikhailovskii.images_android_task.ui.private_area.home.HomeFragment
+import com.mikhailovskii.images_android_task.ui.private_area.home.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.core.qualifier.named
@@ -42,14 +47,20 @@ private val androidKoinModule by lazy {
 
 private val dataKoinModule by lazy {
     module {
-        includes(repositoryModule)
+        includes(
+            repositoryModule,
+            serviceModule
+        )
     }
 }
 
 private val authorizationModule by lazy {
     module {
-        includes(loginModule)
-        includes(registrationModule)
+        includes(
+            loginModule,
+            registrationModule,
+            homeModule
+        )
     }
 }
 
@@ -118,8 +129,23 @@ private val registrationModule by lazy {
     }
 }
 
+private val homeModule by lazy {
+    module {
+        scope<HomeFragment> {
+            viewModel { HomeViewModel(get(named<GetImageListUseCase>())) }
+            scoped<UseCase<List<HomeImageInfo>, Unit>>(named<GetImageListUseCase>()) { GetImageListUseCase(get()) }
+        }
+    }
+}
+
 private val repositoryModule by lazy {
     module {
-        single<com.mikhailovskii.domain.repository.NetworkRepository> { NetworkRepository() }
+        single<com.mikhailovskii.domain.repository.NetworkRepository> { NetworkRepository(get()) }
+    }
+}
+
+private val serviceModule by lazy {
+    module {
+        single { buildService() }
     }
 }
