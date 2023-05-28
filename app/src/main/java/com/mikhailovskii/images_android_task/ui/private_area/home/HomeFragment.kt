@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.mikhailovskii.domain.model.private_area.HomeImageInfo
 import com.mikhailovskii.images_android_task.adapter.ImagesHomeAdapter
 import com.mikhailovskii.images_android_task.base.BaseFragment
@@ -22,7 +23,11 @@ class HomeFragment : BaseFragment(), ViewBindingStrategy<FragmentHomeBinding>, A
     override val binding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
     override val scope by fragmentScope()
 
-    private val adapter by lazy(::ImagesHomeAdapter)
+    private val adapter by lazy {
+        ImagesHomeAdapter {
+            viewModel.openImageDetails(it)
+        }
+    }
     private val viewModel by viewModel<HomeViewModel>()
 
     init {
@@ -47,7 +52,9 @@ class HomeFragment : BaseFragment(), ViewBindingStrategy<FragmentHomeBinding>, A
     }
 
     private fun handleRoute(route: Route?) {
-
+        if (route is Route.PrivateArea.Details) {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment())
+        }
     }
 
     private fun handleImages(images: List<HomeImageInfo>?) {

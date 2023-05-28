@@ -7,11 +7,13 @@ import com.bumptech.glide.Glide
 import com.mikhailovskii.domain.model.private_area.HomeImageInfo
 import com.mikhailovskii.images_android_task.databinding.ImageItemBinding
 
-internal class ImagesHomeAdapter : RecyclerView.Adapter<ImagesHomeAdapter.ViewHolder>() {
+internal class ImagesHomeAdapter(
+    private val onItemClick: (HomeImageInfo) -> Unit
+) : RecyclerView.Adapter<ImagesHomeAdapter.ViewHolder>() {
 
     private val items = mutableListOf<HomeImageInfo>()
 
-    class ViewHolder(
+    inner class ViewHolder(
         private val binding: ImageItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -20,6 +22,7 @@ internal class ImagesHomeAdapter : RecyclerView.Adapter<ImagesHomeAdapter.ViewHo
             Glide.with(binding.root.context)
                 .load(data.url)
                 .into(binding.ivImage)
+            binding.root.setOnClickListener { onItemClick(data) }
         }
     }
 
